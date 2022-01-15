@@ -80,9 +80,10 @@ def disk_usage():
 @app.get('/get/<string:slug>')
 def get_bin_raw(slug: str):
     cur = get_db().cursor()
-    cur.execute('select content from bins where slug = ?', [slug])
+    cur.execute('select content, author from bins where slug = ?', [slug])
     try:
-        return {'text': cur.fetchall()[0][0]}
+        result = cur.fetchall()[0]
+        return {'text': result[0], 'author': result[1]}
     except IndexError:
         return {'error': 'bin does not exist'}, 404
 
