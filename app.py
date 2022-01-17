@@ -97,12 +97,12 @@ def insert_bin_raw(slug: str):
         author = request.remote_addr
     allowed = True
     cur = get_db().cursor()
-    cur.execute('select * from bins where slug = ?', [slug])
+    cur.execute('select author from bins where slug = ?', [slug])
     current_bin = cur.fetchall()
     overwriting = False
     if current_bin:
         overwriting = True
-        allowed = current_bin[0][2] == author
+        allowed = current_bin[0][0] == author
     if allowed:
         cur.execute('insert or replace into bins values (?, ?, ?)', [slug, request.data.decode('utf-8'), author])
         get_db().commit()
