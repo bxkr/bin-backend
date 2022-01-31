@@ -5,7 +5,7 @@ from flask import Flask, g, request
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r'/*': {'origins': '*'}})
+CORS(app, resources={r'/*': {'origins': '*'}})  # for localhost testing
 FLASK_RESPONSE = tuple[dict[str, str], int]
 
 
